@@ -5,17 +5,17 @@ pipeline {
         // Stage for running tests
         stage('Test') {
             steps {
-                // Run tests using Gradle
+                // Exécuter les tests avec Gradle
                 bat './gradlew test'
-                // Publish JUnit test results to Jenkins
-                junit 'build/test-results/test/*.xml'
-                // Publish Cucumber test results
 
-                cucumber buildStatus: 'UNSTABLE',
-                         reportTitle: 'My report',
-                         fileIncludePattern: 'build/cucumber-reports/*.json'
+                // Publier les résultats des tests JUnit
+                junit '/build/test-results/test/*.xml'
+
+                // Publier les résultats des tests Cucumber (facultatif)
+                cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
             }
         }
+
 
         // Stage for code analysis using SonarQube
 
