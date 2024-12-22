@@ -10,6 +10,7 @@ pipeline {
                 // Publish JUnit test results to Jenkins
                 junit 'build/test-results/test/*.xml'
                 // Publish Cucumber test results
+                
                 cucumber buildStatus: 'UNSTABLE',
                          reportTitle: 'My report',
                          fileIncludePattern: 'build/cucumber-reports/*.json'
@@ -17,7 +18,7 @@ pipeline {
         }
 
         // Stage for code analysis using SonarQube
-        
+
 
         // Stage for building the project
         stage('Build') {
