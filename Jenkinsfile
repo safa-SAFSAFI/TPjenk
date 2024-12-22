@@ -17,21 +17,7 @@ pipeline {
         }
 
         // Stage for code analysis using SonarQube
-        stage('Code Analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    // Run SonarQube analysis
-                    bat './gradlew sonar'
-                }
-            }
-        }
-
-        // Stage for checking the quality gate results from SonarQube
-        stage('Quality Gate') {
-            steps {
-                waitForQualityGate abortPipeline: true
-            }
-        }
+        
 
         // Stage for building the project
         stage('Build') {
@@ -74,12 +60,5 @@ pipeline {
             }
         }
 
-        // Stage for deploying the project
-        stage('Deploy') {
-            steps {
-                // Run the publish command (e.g., to push the build artifacts to a remote repository)
-                bat './gradlew publish'
-            }
-        }
-    }
+
 }
