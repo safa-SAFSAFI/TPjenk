@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'jacoco'
+    id("org.sonarqube") version "6.0.1.5171"
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:6.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:6.0.0'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            url System.getenv("url")
+            //url "https://mymavenrepo.com/repo/bLlXO4g2mfq6MLPc0mpj/"
+            credentials {
+                username System.getenv("username")
+                password System.getenv("password")
+                //  username = 'myMavenRepo'
+                //password = 'safa'
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
