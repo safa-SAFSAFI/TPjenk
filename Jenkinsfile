@@ -7,11 +7,7 @@ pipeline {
                 // Execute tests with Gradle
                 bat './gradlew test'
 
-                junit '**/build/test-results/test/*.xml'
-
-                                // Générer et archiver les rapports de tests Cucumber
-                                cucumber build: "build/reports/cucumber/", fileIncludePattern: '**/*.json', sortingMethod: "ALPHABETICAL"
-                            
+                
                 }
         }
 
