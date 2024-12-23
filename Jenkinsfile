@@ -1,27 +1,14 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Test') {
-            steps {
-                // Execute tests with Gradle
-                bat './gradlew test'
 
-                // Publish JUnit test results
-
-
-                // Publish Cucumber test results (if applicable)
-                }
-        }
 
         stage('Build') {
             steps {
                 bat './gradlew build'
                 archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
-                 junit 'build/test-results/test/*.xml'
-                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
-                   }
+                 }
 
             post {
 
@@ -42,5 +29,19 @@ pipeline {
                 }
             }
         }
+        stages {
+                stage('Test') {
+                    steps {
+                        // Execute tests with Gradle
+                        bat './gradlew test'
+
+                        // Publish JUnit test results
+                 junit 'build/test-results/test/*.xml'
+                         cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
+
+
+                        // Publish Cucumber test results (if applicable)
+                        }
+                }
     }
 }
