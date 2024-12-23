@@ -24,10 +24,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    reports {
-        junitXml.enabled = true
-        html.enabled = true
-    }
+   
 
 }
 
