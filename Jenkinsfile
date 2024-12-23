@@ -19,14 +19,12 @@ pipeline {
                 bat './gradlew build'
                 archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
-                notifyEvents message: '<h1>Building...</h1>', token: '4iwq3njk9vw0ui7irxh0yiqhed0rf2qb'
-            }
+                 junit 'build/test-results/test/*.xml'
+                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
+                   }
 
             post {
-                always {
-                                   junit 'build/test-results/test/*.xml'
-                                   cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
-                               }
+
 
                 success {
                     emailext(
