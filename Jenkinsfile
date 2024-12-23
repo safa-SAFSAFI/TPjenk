@@ -8,9 +8,9 @@ pipeline {
                 bat './gradlew test'
 
                 // Publish JUnit test results
-                 junit skipMarkingBuildUnstable: true, testResults: 'test-results.xml'
+                 //junit skipMarkingBuildUnstable: true, testResults: 'test-results.xml'
                 //junit 'build/test-results/test/*.xml'
-                                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
+                                // cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
 
                 // Publish Cucumber test results (if applicable)
                 }
@@ -25,8 +25,11 @@ pipeline {
 
             post {
 
-
-                success {
+                 always {
+                 junit skipMarkingBuildUnstable: true, testResults: 'test-results.xml'
+                    cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
+                }
+                /*success {
                     emailext(
                         subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build succeeded. Check the details at ${env.BUILD_URL}.',
@@ -39,7 +42,7 @@ pipeline {
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']]
                     )
-                }
+                }*/
             }
         }
     }
