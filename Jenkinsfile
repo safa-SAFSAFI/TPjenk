@@ -9,10 +9,7 @@ pipeline {
 
 
                 junit '**/build/test-results/test/*.xml'
-                cucumber buildStatus: 'UNSTABLE',
-                                                reportTitle: 'My report',
-                                                fileIncludePattern: 'target/report.json'}
-        }
+                }
 
         stage('Build') {
             steps {
