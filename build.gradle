@@ -51,3 +51,8 @@ publishing {
         }
     }
 }
+test {
+    reports {
+        junitXml.destination = file("$buildDir/test-results/test")
+    }
+}
