@@ -28,7 +28,7 @@ pipeline {
                                    cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
                                }
 
-                success {
+              /*  success {
                     emailext(
                         subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build succeeded. Check the details at ${env.BUILD_URL}.',
@@ -40,7 +40,7 @@ pipeline {
                         subject: 'Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                    )
+                    )*/
                 }
             }
         }
