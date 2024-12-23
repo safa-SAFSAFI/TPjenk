@@ -8,8 +8,8 @@ pipeline {
                 bat './gradlew test'
 
                 // Publish JUnit test results
-                 junit skipMarkingBuildUnstable: true, testResults: 'test-results.xml'
-                //junit 'build/test-results/test/*.xml'
+
+                junit '**/build/test-results/test/*.xml'
                                  cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
 
                 // Publish Cucumber test results (if applicable)
@@ -25,7 +25,7 @@ pipeline {
 
             post {
 
-                 
+
                 success {
                     emailext(
                         subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
