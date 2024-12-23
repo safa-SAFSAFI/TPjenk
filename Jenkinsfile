@@ -9,8 +9,9 @@ pipeline {
                 bat './gradlew test'
 
                 // Publier les résultats des tests JUnit
-                
-                junit '/build/test-results/test/*.xml'
+
+               junit 'build/test-results/test'
+
 
                 // Publier les résultats des tests Cucumber (facultatif)
                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
