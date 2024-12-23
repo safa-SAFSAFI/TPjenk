@@ -9,9 +9,7 @@ pipeline {
 
                 // Publish JUnit test results
 
-                junit '../build/test-results/test/*.xml'
-                                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
-
+               
                 // Publish Cucumber test results (if applicable)
                 }
         }
