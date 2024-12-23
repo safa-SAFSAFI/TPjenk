@@ -24,7 +24,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
 
 }
 
@@ -51,8 +54,4 @@ publishing {
         }
     }
 }
-test {
-    reports {
-        junitXml.destination = file("$buildDir/test-results/test")
-    }
-}
+
