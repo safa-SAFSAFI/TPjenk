@@ -9,7 +9,9 @@ pipeline {
 
 
                 junit '**/build/test-results/test/*.xml'
+                cucumber buildStatus: "build/reports/cucumber/", fileIncludePattern: '**/*.json', sortingMethod: "ALPHABETICAL"
                 }
+        }
 
         stage('Build') {
             steps {
