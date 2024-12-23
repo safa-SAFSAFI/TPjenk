@@ -19,7 +19,7 @@ pipeline {
                 bat './gradlew build'
                 archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
-               // notifyEvents message: '<h1>Building...</h1>', token: '4iwq3njk9vw0ui7irxh0yiqhed0rf2qb'
+                notifyEvents message: '<h1>Building...</h1>', token: '4iwq3njk9vw0ui7irxh0yiqhed0rf2qb'
             }
 
             post {
@@ -28,7 +28,7 @@ pipeline {
                                    cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
                                }
 
-              /*  success {
+                success {
                     emailext(
                         subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build succeeded. Check the details at ${env.BUILD_URL}.',
@@ -40,7 +40,7 @@ pipeline {
                         subject: 'Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                    )*/
+                    )
                 }
             }
         }
