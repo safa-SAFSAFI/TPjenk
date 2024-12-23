@@ -8,7 +8,9 @@ pipeline {
                 bat './gradlew test'
 
                 // Publish JUnit test results
-
+                 junit skipMarkingBuildUnstable: true, testResults: 'test-results.xml'
+                //junit 'build/test-results/test/*.xml'
+                                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
 
                 // Publish Cucumber test results (if applicable)
                 }
@@ -19,9 +21,7 @@ pipeline {
                 bat './gradlew build'
                 archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
-                 junit 'build/test-results/test/*.xml'
-                 cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
-                   }
+                  }
 
             post {
 
