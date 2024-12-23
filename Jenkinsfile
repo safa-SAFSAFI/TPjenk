@@ -1,15 +1,6 @@
 pipeline {
     agent any
-options {
-        skipDefaultCheckout()
-    }
 
-    stages {
-        stage('Clean Workspace') {
-            steps {
-                cleanWs() // Clean workspace at the start of the pipeline
-            }
-        }
     stages {
         stage('Test') {
             steps {
