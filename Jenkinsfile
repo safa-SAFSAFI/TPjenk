@@ -9,6 +9,7 @@ pipeline {
                 bat './gradlew test'
 
                 // Publier les résultats des tests JUnit
+                
                 junit '/build/test-results/test/*.xml'
 
                 // Publier les résultats des tests Cucumber (facultatif)
