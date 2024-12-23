@@ -8,11 +8,10 @@ pipeline {
                 bat './gradlew test'
 
                 // Publish JUnit test results
-                junit 'build/test-results/test/*.xml'
+
 
                 // Publish Cucumber test results (if applicable)
-                cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
-            }
+                }
         }
 
         stage('Build') {
@@ -24,6 +23,9 @@ pipeline {
             }
 
             post {
+                junit 'build/test-results/test/*.xml'
+                cucumber buildStatus: 'UNSTABLE', reportTitle: 'Cucumber Test Report', fileIncludePattern: 'build/reports/cucumber/*.json'
+                            
                 success {
                     emailext(
                         subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
