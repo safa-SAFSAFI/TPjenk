@@ -7,10 +7,7 @@ pipeline {
                 // Execute tests with Gradle
                 bat './gradlew test'
 
-                // Publish JUnit test results
 
-               
-                // Publish Cucumber test results (if applicable)
                 }
         }
 
