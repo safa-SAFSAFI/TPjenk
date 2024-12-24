@@ -59,7 +59,7 @@ sonarqube {
     properties {
         // URL du serveur SonarQube
         property "sonar.host.url", "http://localhost:9000" // URL du serveur SonarQube
-        property "sonar.token", "sqa_8dc885097724e00ab289d5bdf54d84aef581ebef" // Remplacez par votre token SonarQube généré
+        property "sonar.token", "sqa_996c5e60c04c46c1249480f5d48433c47b8dc8a7" // Remplacez par votre token SonarQube généré
 
 
         // Désactivation de la compilation implicite (selon l'avertissement de dépréciation)
