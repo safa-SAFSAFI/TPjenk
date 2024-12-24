@@ -15,6 +15,7 @@ pipeline {
                                             fileIncludePattern: 'target/report.json'
            }
        }
+
        
 
 
