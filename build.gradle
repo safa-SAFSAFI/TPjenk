@@ -55,6 +55,8 @@ publishing {
     }
 }
 
+
+
 sonarqube {
     properties {
         // URL du serveur SonarQube
