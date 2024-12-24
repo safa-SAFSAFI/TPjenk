@@ -10,9 +10,23 @@ pipeline {
 
                // Publish JUnit test results to Jenkins
             //junit 'build/test-results/test/*.xml'
+            cucumber buildStatus: 'UNSTABLE',
+                                        failedFeaturesNumber: 1,
+                                        failedScenariosNumber: 1,
+                                        skippedStepsNumber: 1,
+                                        failedStepsNumber: 1,
+                                        classifications: [
+                                                [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
+                                                [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
+                                        ],
+                                        reportTitle: 'My report',
+                                        fileIncludePattern: 'target/report.json',
+                                        sortingMethod: 'ALPHABETICAL',
+                                        trendsLimit: 100
                           /*  cucumber buildStatus: 'UNSTABLE',
                                             reportTitle: 'My report',
                                             fileIncludePattern: 'target/report.json'*/
+
            }
        }
 
@@ -51,21 +65,7 @@ pipeline {
             }
 
             post {
-            always {
-                    cucumber buildStatus: 'UNSTABLE',
-                            failedFeaturesNumber: 1,
-                            failedScenariosNumber: 1,
-                            skippedStepsNumber: 1,
-                            failedStepsNumber: 1,
-                            classifications: [
-                                    [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
-                                    [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
-                            ],
-                            reportTitle: 'My report',
-                            fileIncludePattern: 'target/report.json',
-                            sortingMethod: 'ALPHABETICAL',
-                            trendsLimit: 100
-                }
+
                 // Notifications upon successful build
                /* success {
                   //  notifyEvents message: '<h1>succeeded and built...</h1>', token: '4lwq3njk9vw0ui7irxh0yiqhed0rf2qb'
