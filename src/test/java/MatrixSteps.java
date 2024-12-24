@@ -141,6 +141,7 @@ public class MatrixSteps {
             Tdata[i][j+1] = columns.get("col2");
             i=i+1;
         }
+        
         assertArrayEquals(Tdata,cofactorMatrix);
 
 
