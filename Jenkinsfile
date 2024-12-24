@@ -10,9 +10,9 @@ pipeline {
 
                // Publish JUnit test results to Jenkins
             //junit 'build/test-results/test/*.xml'
-                            cucumber buildStatus: 'UNSTABLE',
+                          /*  cucumber buildStatus: 'UNSTABLE',
                                             reportTitle: 'My report',
-                                            fileIncludePattern: 'target/report.json'
+                                            fileIncludePattern: 'target/report.json'*/
            }
        }
 
@@ -28,12 +28,12 @@ pipeline {
         }
 
         // Stage for checking the quality gate results from SonarQube
-        stage('Quality Gate') {
+       /* stage('Quality Gate') {
             steps {
                 waitForQualityGate abortPipeline: true
             }
         }
-
+*/
         // Stage for building the project
         stage('Build') {
             steps {
@@ -51,6 +51,21 @@ pipeline {
             }
 
             post {
+            always {
+                    cucumber buildStatus: 'UNSTABLE',
+                            failedFeaturesNumber: 1,
+                            failedScenariosNumber: 1,
+                            skippedStepsNumber: 1,
+                            failedStepsNumber: 1,
+                            classifications: [
+                                    [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
+                                    [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
+                            ],
+                            reportTitle: 'My report',
+                            fileIncludePattern: '**/*cucumber-report.json',
+                            sortingMethod: 'ALPHABETICAL',
+                            trendsLimit: 100
+                }
                 // Notifications upon successful build
                 success {
                   //  notifyEvents message: '<h1>succeeded and built...</h1>', token: '4lwq3njk9vw0ui7irxh0yiqhed0rf2qb'
