@@ -9,7 +9,7 @@ pipeline {
                bat './gradlew test'
 
                // Publish JUnit test results to Jenkins
-            junit 'build/test-results/test/*.xml'
+            //junit 'build/test-results/test/*.xml'
                             cucumber buildStatus: 'UNSTABLE',
                                             reportTitle: 'My report',
                                             fileIncludePattern: 'target/report.json'
