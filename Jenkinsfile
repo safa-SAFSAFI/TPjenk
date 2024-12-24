@@ -10,13 +10,13 @@ pipeline {
 
                // Publish JUnit test results to Jenkins
             //junit 'build/test-results/test/*.xml'
-                            cucumber buildStatus: 'UNSTABLE',
+                           /* cucumber buildStatus: 'UNSTABLE',
                                             reportTitle: 'My report',
-                                            fileIncludePattern: 'target/report.json'
+                                            fileIncludePattern: 'target/report.json'*/
            }
        }
 
-       
+
 
 
         // Stage for code analysis using SonarQube
@@ -33,6 +33,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 waitForQualityGate abortPipeline: true
+
             }
         }
 
@@ -49,7 +50,7 @@ pipeline {
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
 
                 // Notify external service (Slack, etc.) about the build status
-                notifyEvents message: '<h1>Building...</h1>', token: '4iwq3njk9vw0ui7irxh0yiqhed0rf2qb'
+                notifyEvents message: '<h1>Building...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
             }
 
             post {
@@ -64,16 +65,16 @@ pipeline {
                                     [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
                             ],
                             reportTitle: 'My report',
-                            fileIncludePattern: '**/*cucumber-report.json',
+                            fileIncludePattern: 'target/report.json',
                             sortingMethod: 'ALPHABETICAL',
                             trendsLimit: 100
                 }
                 // Notifications upon successful build
                 success {
-                  //  notifyEvents message: '<h1>succeeded and built...</h1>', token: '4lwq3njk9vw0ui7irxh0yiqhed0rf2qb'
+                    notifyEvents message: '<h1>succeeded and built...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
                     // Send email notification on success
                     emailext(
-                        subject: 'Build Succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
+                        subject: 'Build Succeeded: ',
                         body: 'The build succeeded. Check the details at ${env.BUILD_URL}.',
                          to: 'ks_safsafi@esi.dz'
                     )
@@ -81,8 +82,8 @@ pipeline {
 
                 // Notifications if the build fails
                 failure {
-                   // notifyEvents message: '<h1>failed to build...</h1>', token: '4iwq3njk9vw0ui7irxh0yiqhed0rf2qb'
-                    // Send email notification on failure
+                   notifyEvents message: '<h1>failed to build...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
+                   Send email notification on failure
                     emailext(
                         subject: 'Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
