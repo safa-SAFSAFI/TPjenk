@@ -66,10 +66,10 @@ sonarqube {
         property "sonar.skipCompile", "true" // Cela empêche SonarQube de déclencher la compilation automatique
 
         // Paramètres supplémentaires de SonarQube, comme les inclusions/exclusions de fichiers
-        property "sonar.sources", "src/main/java"
+      /*  property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java"
         property "sonar.java.binaries", "build/classes"
-
+*/
         // Cucumber Reports (optionnel)
         //  property "sonar.cucumber.reportPaths", "build/reports/cucumber/cucumber.json" // Changez si vous générez des rapports JSON pour Cucumber
     }
