@@ -56,23 +56,3 @@ publishing {
 }
 
 
-
-sonarqube {
-    properties {
-        // URL du serveur SonarQube
-        property "sonar.host.url", "http://localhost:9000" // URL du serveur SonarQube
-        property "sonar.token", "sqa_996c5e60c04c46c1249480f5d48433c47b8dc8a7" // Remplacez par votre token SonarQube généré
-
-
-        // Désactivation de la compilation implicite (selon l'avertissement de dépréciation)
-        property "sonar.skipCompile", "true" // Cela empêche SonarQube de déclencher la compilation automatique
-
-        // Paramètres supplémentaires de SonarQube, comme les inclusions/exclusions de fichiers
-      /*  property "sonar.sources", "src/main/java"
-        property "sonar.tests", "src/test/java"
-        property "sonar.java.binaries", "build/classes"
-*/
-        // Cucumber Reports (optionnel)
-        //  property "sonar.cucumber.reportPaths", "build/reports/cucumber/cucumber.json" // Changez si vous générez des rapports JSON pour Cucumber
-    }
-}
