@@ -116,6 +116,6 @@ pipeline {
 
                     failure {
                         slackSend(channel: '#tp-jenkins', color: 'danger', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' failed. :x:")
-                    }
-                }
+      }              }
+
 }
