@@ -50,7 +50,7 @@ pipeline {
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
 
                 // Notify external service (Slack, etc.) about the build status
-                notifyEvents message: '<h1>Building...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
+               // notifyEvents message: '<h1>Building...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
             }
 
             post {
@@ -70,7 +70,7 @@ pipeline {
                             trendsLimit: 100
                 }
                 // Notifications upon successful build
-                success {
+               /* success {
                     notifyEvents message: '<h1>succeeded and built...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
                     // Send email notification on success
                     emailext(
@@ -88,11 +88,11 @@ pipeline {
                         subject: 'Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
                         to: 'ks_safsafi@esi.dz'
-                    )
+                    )*/
                 }
             }
         }
-        
+
 
         // Stage for deploying the project
         stage('Deploy') {
@@ -101,5 +101,18 @@ pipeline {
                 bat './gradlew publish'
             }
         }
+          post {
+                always {
+                    slackSend(channel: '#tp-jenkins', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' finished with status: ${currentBuild.currentResult}")
+                }
+
+                success {
+                    slackSend(channel: '#tp-jenkins', color: 'good', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' succeeded! :tada:")
+                }
+
+                failure {
+                    slackSend(channel: '#tp-jenkins', color: 'danger', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' failed. :x:")
+                }
+            }
     }
 }
