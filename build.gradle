@@ -37,12 +37,15 @@ publishing {
         maven {
             url System.getenv("url")
             //url "https://mymavenrepo.com/repo/bLlXO4g2mfq6MLPc0mpj/"
-            credentials {
-                username System.getenv("username")
-                password System.getenv("password")
+
                 //  username = 'myMavenRepo'
                 //password = 'safa'
+
+            credentials {
+                username = "$USERNAME"
+                password = "$PASSWORD"
             }
+
         }
     }
 

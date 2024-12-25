@@ -97,8 +97,8 @@ pipeline {
         // Stage for deploying the project
         stage('Deploy') {
             steps {
-                // Run the publish command (e.g., to push the build artifacts to a remote repository)
-                bat './gradlew publish'
+               withCredentials([usernamePassword(credentialsId: 'publish', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                   bat './gradlew publish'
             }
         }
 
@@ -117,3 +117,5 @@ pipeline {
                     }
                 }
 }
+
+
