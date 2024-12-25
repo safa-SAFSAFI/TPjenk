@@ -50,7 +50,7 @@ pipeline {
                 archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', allowEmptyArchive: true
 
                 // Notify external service (Slack, etc.) about the build status
-               // notifyEvents message: '<h1>Building...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
+                //notifyEvents message: '<h1>Building...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
             }
 
             post {
@@ -70,8 +70,8 @@ pipeline {
                             trendsLimit: 100
                 }
                 // Notifications upon successful build
-               /* success {
-                    notifyEvents message: '<h1>succeeded and built...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
+                success {
+                    //notifyEvents message: '<h1>succeeded and built...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
                     // Send email notification on success
                     emailext(
                         subject: 'Build Succeeded: ',
@@ -82,13 +82,13 @@ pipeline {
 
                 // Notifications if the build fails
                 failure {
-                   notifyEvents message: '<h1>failed to build...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
-                   Send email notification on failure
+                  // notifyEvents message: '<h1>failed to build...</h1>', token: 'VVYVZK9oppXnU9hHziDWXcKQ'
+                  // Send email notification on failure
                     emailext(
                         subject: 'Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
                         body: 'The build failed. Check the details at ${env.BUILD_URL}.',
                         to: 'ks_safsafi@esi.dz'
-                    )*/
+                    )
                 }
             }
         }
@@ -101,18 +101,19 @@ pipeline {
                 bat './gradlew publish'
             }
         }
-          post {
-                always {
-                    slackSend(channel: '#tp-jenkins', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' finished with status: ${currentBuild.currentResult}")
-                }
 
-                success {
-                    slackSend(channel: '#tp-jenkins', color: 'good', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' succeeded! :tada:")
-                }
-
-                failure {
-                    slackSend(channel: '#tp-jenkins', color: 'danger', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' failed. :x:")
-                }
-            }
     }
+     post {
+                    always {
+                        slackSend(channel: '#tp-jenkins', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' finished with status: ${currentBuild.currentResult}")
+                    }
+
+                    success {
+                        slackSend(channel: '#tp-jenkins', color: 'good', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' succeeded! :tada:")
+                    }
+
+                    failure {
+                        slackSend(channel: '#tp-jenkins', color: 'danger', message: "Job '${env.JOB_NAME} [#${env.BUILD_NUMBER}](${env.BUILD_URL})' failed. :x:")
+                    }
+                }
 }
